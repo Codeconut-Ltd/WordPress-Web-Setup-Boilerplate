@@ -1,0 +1,110 @@
+# TOC
+# - Access
+#   - Login
+# - Caching
+# - Rewrites
+
+# Live ENV has different IP
+SetEnvIf Remote_Addr 127\.0\.0\.1 DEVELOPMENT
+
+# Default/Backup configurations
+Options -Indexes
+
+
+# ----------------------------------------------------------------------------------------------------------------------------------- Access
+
+# Block critical file access
+<FilesMatch "^.*(license.txt|wp-config.*?\.php|.*error.?log|php.ini|readme.html|xmlrpc.php|\.[hH][tT][aApP].*)$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Allow frontend Ajax (e.g. used if logged in)
+<Files "admin-ajax.php">
+    Order Allow,Deny
+    Allow from all
+    Satisfy any
+</Files>
+
+# Disallow crawler indexing DEV environments
+<IfModule mod_headers.c>
+    Header set X-Robots-Tag "noindex, nofollow, noarchive, nosnippet" env=DEVELOPMENT
+</IfModule>
+
+
+# -------------------------------------------------------------------------------------------------------------------------- Login
+
+# Live ENV - Additional admin path security
+# <Files "wp-login.php">
+#
+#     AuthName "Restricted area"
+#     AuthUserFile /home/XXX/public_html/XXX/.htpasswd
+#     AuthType Basic
+#     Require valid-user
+#
+#     Order Allow,Deny
+#     Allow from env=DEVELOPMENT
+#     Satisfy any
+#
+# </Files>
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------- Caching
+
+# Prevent any caching on DEV environments
+# - Mainly used to prevent redirect caching
+<IfModule mod_headers.c>
+
+    FileETag None
+
+    Header unset ETag env=DEVELOPMENT
+    Header unset Pragma env=DEVELOPMENT
+    Header unset Cache-Control env=DEVELOPMENT
+    Header unset Last-Modified env=DEVELOPMENT
+
+    Header set Pragma "no-cache" env=DEVELOPMENT
+    Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate" env=DEVELOPMENT
+    Header set Expires "Thu, 01 Jan 1970 00:00:00 GMT" env=DEVELOPMENT
+
+</IfModule>
+
+
+# --------------------------------------------------------------------------------------------------------------------------------- Rewrites
+
+<IfModule mod_rewrite.c>
+
+    RewriteEngine On
+    RewriteBase /
+
+    # Redirect alternate names (e.g. dash to non-dash versions)
+    # RewriteCond %{HTTP_HOST} ^(www.)?XXX-XXX.XXX$ [NC]
+    # RewriteRule ^(.*)$ http://www.XXXXXX.XXX/$1 [R=301,L]
+
+    # LIVE ENV - Enforce HTTPS protocol
+    RewriteCond %{REMOTE_ADDR} !^127.0.0.1$ [NC]
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{SERVER_NAME}%{REQUEST_URI} [R=301,L]
+
+    # Redirect request to subfolder and mask it in URLs.
+    # Subfolder can be used for versioning and fast rollbacks.
+    # Exclude redirecting of the 'wp-admin' folder.
+    RewriteCond %{REMOTE_ADDR} ^127.0.0.1$ [NC,OR]
+    RewriteCond %{HTTP_HOST} ^(www.)?XXXXXX.XXX$ [NC]
+    RewriteCond %{REQUEST_URI} !wp-admin/?
+    RewriteCond %{REQUEST_URI} !live/
+    RewriteRule (.*) /live/$1 [L]
+
+</IfModule>
+
+
+# WordPress
+<IfModule mod_rewrite.c>
+
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.php$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.php [L]
+
+</IfModule>

@@ -1,0 +1,5 @@
+# If needed: Block executable + code files (needs individual adjustment)
+<Files ~ ".(md|mo|php|po|sh|scss|tpl|txt|xml)$">
+    # Order Deny,Allow
+    # Deny from all
+</Files>

@@ -1,0 +1,38 @@
+# BEGIN Codeconut
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Block secure file access
+    RewriteRule ^wp-admin/includes/ - [F,L]
+    RewriteRule !^wp-includes/ - [S=4]
+    RewriteRule ^wp-includes/[^/]+\.php$ - [F,L]
+    RewriteRule ^wp-includes/js/tinymce/langs/.+\.php - [F,L]
+    RewriteRule ^wp-includes/theme-compat/ - [F,L]
+    RewriteRule ^wp-includes/wlwmanifest.xml$ - [F,L]
+
+    # Prevent image hotlinking (except for allowed domains)
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?XXX.XXX [NC]
+    RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?facebook.com [NC]
+    RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?google.com [NC]
+    RewriteRule \.(gif|jpe?g|png|webp)$ - [NC,F,L]
+
+    # Block author scans
+    RewriteCond %{HTTP_REFERER} !/wp-admin/edit.php [NC]
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteCond %{QUERY_STRING} (author=\d+) [NC]
+    RewriteRule .* - [F]
+</IfModule>
+# END Codeconut
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /live/
+    RewriteRule ^index\.php$ - [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /live/index.php [L]
+</IfModule>
+# END WordPress

@@ -1,0 +1,5 @@
+# If needed: Block executable + code files (needs individual adjustment)
+<Files ~ ".(php|sh)$">
+    # Order Deny,Allow
+    # Deny from all
+</Files>
