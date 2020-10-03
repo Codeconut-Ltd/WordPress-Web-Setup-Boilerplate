@@ -84,3 +84,4 @@ Most files require manual adjustments to fit hosting and website needs. Manually
 ## Todo
 
 - Add list of unneeded default files to be removed
+- Simplify `.htaccess` redirections for WordPress
