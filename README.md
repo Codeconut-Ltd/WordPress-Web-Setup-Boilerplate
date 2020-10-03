@@ -29,7 +29,7 @@ Security-focused structural boilerplate for any WordPress webs. Opinionated feat
 ### General
 
 - Generic config suited for multiple WordPress installations in one hosting environment.
-- Subfolder setup allows to deploy multiple versions and quickly switch between them to reduce outage or fallback in case of application errors.
+- Subfolder setup allows deploying multiple versions and quickly switch between them to reduce outage or fallback in case of application errors.
   - Here: The folder name '/live/' is an arbitrary decision for the most-recent version to reduce edit-needs within the file. One could also work with versions or dates.
 - Default `robots.txt` blocks 'wp-' path indexing and example sitemap
 
