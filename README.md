@@ -1,6 +1,6 @@
 ![WordPress Web Setup Boilerplate](teaser.png)
 
-# Web Setup
+# Security-focused boilerplate
 
 - [About](#about)
 - [Features](#features)
@@ -21,6 +21,11 @@
 Security-focused structural boilerplate for any WordPress webs. Opinionated features that might not work with any hosting. Only use if experienced with WordPress setup and feel comfortable editing server files.
 
 **Intended for developers – Not end users**
+
+### Current state
+
+The suggested changes in this boilerplate are still up-to-date in 2020 and for current WordPress releases.
+Despite some of these issues being known for several years, they have never been improved upon, and some of these are out of WordPress.
 
 <br><br>
 
