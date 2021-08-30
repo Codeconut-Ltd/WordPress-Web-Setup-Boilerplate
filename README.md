@@ -1,6 +1,8 @@
 ![WordPress Web Setup Boilerplate](teaser.png)
 
-# Security-focused boilerplate
+# WordPress Web Setup Boilerplate
+
+Security-focused template
 
 - [About](#about)
 - [Features](#features)
