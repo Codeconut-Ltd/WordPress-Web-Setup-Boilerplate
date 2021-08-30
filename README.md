@@ -67,6 +67,18 @@ Secrets
 
 Copy the folder content in the WordPress installation.
 
+<br><br>
+
+## Breaking features
+
+Features that potentially _might_ cause issues depending on your own needs. Feel free to disable these manually.
+
+- `/public_html/wordpress-example/live/.htaccess`
+  - 'Prevent image hotlinking' - If you are using any of these platforms and _want_ to link images from your server, change or disable this. Examples: You're sharing content on Social media or within your own shop that includes images from your domain.
+
+
+<br>
+
 ### Changes
 
 Most files require manual adjustments to fit hosting and website needs. Manually check the suggested features and test with your hosting environment capabilities. Some features might not work everywhere!
