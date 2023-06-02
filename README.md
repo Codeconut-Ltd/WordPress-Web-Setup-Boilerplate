@@ -13,9 +13,6 @@ Security-focused template
 
 ---
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Codeconut-Ltd_WordPress-Web-Setup-Boilerplate&metric=alert_status)](https://sonarcloud.io/dashboard?id=Codeconut-Ltd_WordPress-Web-Setup-Boilerplate)
-![Maintenance](https://img.shields.io/static/v1?label=maintained&message=unregular&color=inactive)
-
 <br><br>
 
 ## About
